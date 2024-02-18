@@ -24,13 +24,14 @@ import jakarta.transaction.Transactional;
 public class EnviaEmail {
 	@Autowired
 	private UserService userService;
+	@Autowired
+	WebScrappingPoema poemaWebScrapping = new WebScrappingPoema();
 	
 	@Transactional
 	@Scheduled(fixedRate = 30000)
 	public void enviaEmail() {
 		Properties props = new Properties();
 		CorpoEmailDto corpoEmail = new CorpoEmailDto();
-		WebScrappingPoema poemaWebScrapping = new WebScrappingPoema();
 
 		props.put("mail.smtp.host", "smtp.gmail.com");
 		props.put("mail.smtp.port", "587");

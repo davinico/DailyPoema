@@ -1,18 +1,21 @@
 package com.projetoEmail.ProjetoEmail.service;
 
+import java.io.IOException;
+
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-import com.projetoEmail.ProjetoEmail.repository.ParametrosRepository;
-
-import java.io.IOException;
-
+@Service
 public class WebScrappingPoema {
-
+	@Autowired
+	ParametrosService parametrosService;
+	
 	public String buscaPoema() {
-		ParametrosService parametrosService;
+		
 		String url = parametrosService.retornaParametro(Long.valueOf(2));
 		String poemText = null;
 		try {
