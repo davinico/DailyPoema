@@ -13,6 +13,7 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
@@ -31,6 +32,7 @@ public class EnviaEmail {
 	
 	@Transactional
 	@Scheduled(fixedRate = 30000)
+	@Async
 	public void enviaEmail() {
 		Properties props = new Properties();
 		CorpoEmailDto corpoEmail = new CorpoEmailDto();
