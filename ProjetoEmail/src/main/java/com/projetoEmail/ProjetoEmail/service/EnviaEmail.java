@@ -58,7 +58,6 @@ public class EnviaEmail {
 				
 				message.setRecipients(Message.RecipientType.TO, toUser);
 				message.setSubject("Poema do dia");
-				message.setText(corpoEmail.organizaHtml(user.getEmail(), poemaWebScrapping.buscaPoema(), codigoFonteEmail));
 				message.setContent(corpoEmail.organizaHtml(user.getName(), poemaWebScrapping.buscaPoema(), codigoFonteEmail), "text/html; charset=utf-8");
 	
 				Transport.send(message);
