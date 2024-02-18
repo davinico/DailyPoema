@@ -26,12 +26,15 @@ public class EnviaEmail {
 	private UserService userService;
 	@Autowired
 	WebScrappingPoema poemaWebScrapping = new WebScrappingPoema();
+	@Autowired
+	ParametrosService parametrosService;
 	
 	@Transactional
 	@Scheduled(fixedRate = 30000)
 	public void enviaEmail() {
 		Properties props = new Properties();
 		CorpoEmailDto corpoEmail = new CorpoEmailDto();
+		String codigoFonteEmail = parametrosService.retornaParametro(Long.valueOf(1));
 
 		props.put("mail.smtp.host", "smtp.gmail.com");
 		props.put("mail.smtp.port", "587");
@@ -55,8 +58,8 @@ public class EnviaEmail {
 				
 				message.setRecipients(Message.RecipientType.TO, toUser);
 				message.setSubject("Poema do dia");
-				message.setText(corpoEmail.organizaHtml(user.getEmail(), poemaWebScrapping.buscaPoema()));
-				message.setContent(corpoEmail.organizaHtml(user.getName(), poemaWebScrapping.buscaPoema()), "text/html; charset=utf-8");
+				message.setText(corpoEmail.organizaHtml(user.getEmail(), poemaWebScrapping.buscaPoema(), codigoFonteEmail));
+				message.setContent(corpoEmail.organizaHtml(user.getName(), poemaWebScrapping.buscaPoema(), codigoFonteEmail), "text/html; charset=utf-8");
 	
 				Transport.send(message);
 			} catch (MessagingException e) {
